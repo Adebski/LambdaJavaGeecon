@@ -9,14 +9,17 @@ import java.util.Map;
 
 public class LambdaJavaGeeconHelloWorld implements RequestHandler<Map<String, String>, String> {
 
-    protected static final Logger LOGGER = LogManager.getLogger(LambdaJavaGeeconHelloWorld.class);
-
-    private final long constructTime;
+    private final Logger logger;
+    private final long constructTimeStart;
+    private final long constructTimeEnd;
     private int invocations = 0;
 
     public LambdaJavaGeeconHelloWorld() {
-        LOGGER.info("Constructor");
-        this.constructTime = System.currentTimeMillis();
+        this.constructTimeStart = System.currentTimeMillis();
+        this.logger = LogManager.getLogger(LambdaJavaGeeconHelloWorld.class);
+        this.constructTimeEnd = System.currentTimeMillis();
+
+        logger.info("Constructor took {} ms", constructTimeEnd - constructTimeStart);
     }
 
     @Override
@@ -24,7 +27,7 @@ public class LambdaJavaGeeconHelloWorld implements RequestHandler<Map<String, St
         ++invocations;
         long start = System.currentTimeMillis();
 
-        LOGGER.info("handleRequest {} ms after the constructor, {} invocation", start - constructTime, invocations);
+        logger.info("handleRequest {} ms after the constructor, {} invocation", start - constructTimeEnd, invocations);
 
         return "foo";
     }
