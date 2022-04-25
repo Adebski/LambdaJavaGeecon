@@ -26,9 +26,12 @@ public class LambdaJavaGeeconHelloWorld implements RequestHandler<Map<String, St
     public String handleRequest(Map<String, String> input, Context context) {
         ++invocations;
         long start = System.currentTimeMillis();
+        int numberReceived = Integer.parseInt(input.get("testNumber"));
+        String result =
+            numberReceived % 2 == 0 ? String.format("%d is even", numberReceived) : String.format("%d is odd", numberReceived);
 
         logger.info("handleRequest {} ms after the constructor, {} invocation", start - constructTimeEnd, invocations);
 
-        return "foo";
+        return result;
     }
 }
