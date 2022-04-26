@@ -8,7 +8,20 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 public class LambdaJavaGeeconHelloWorld implements RequestHandler<Map<String, String>, String> {
+    private static final int DUMMY_INT_STATIC;
+    private static final String DUMMY_STRING_STATIC = getStringAndPrint("DUMMY_STRING_STATIC");
 
+    private static String getStringAndPrint(String variableName) {
+        System.out.println(String.format("Initializing %s during the init phase", variableName));
+        return variableName + "foo";
+    }
+
+    static {
+        System.out.println("Static initializer");
+        DUMMY_INT_STATIC = 5;
+    }
+
+    private final String dummyStringNonStatic = getStringAndPrint("dummyStringNonStatic");
     private final Logger logger;
     private final long constructTimeStart;
     private final long constructTimeEnd;
