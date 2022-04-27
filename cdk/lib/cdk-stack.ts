@@ -12,29 +12,32 @@ export class CdkStack extends Stack {
     });
 
     const lambdaHelloWorld = new aws_lambda.Function(this, 'lambda-java-geecon-hello-world', {
+      description: new Date().toISOString(),
       runtime: aws_lambda.Runtime.JAVA_11,
       memorySize: 128,
       handler: "com.adebski.LambdaJavaGeeconHelloWorld",
-      code: aws_lambda.Code.fromAsset("../target/LambdaJavaGeecon-1.0.jar"),
+      code: aws_lambda.Code.fromAsset("../assets/handlers-1.0.jar"),
       timeout: Duration.seconds(30),
       reservedConcurrentExecutions: 10
     });
 
     const lambdaMultiplePaths = new aws_lambda.Function(this, 'lambda-java-geecon-multiple-paths', {
+      description: new Date().toISOString(),
       runtime: aws_lambda.Runtime.JAVA_11,
       memorySize: 256,
       handler: "com.adebski.LambdaJavaGeeconMultiplePaths",
-      code: aws_lambda.Code.fromAsset("../target/LambdaJavaGeecon-1.0.jar"),
+      code: aws_lambda.Code.fromAsset("../assets/handlers-1.0.jar"),
       timeout: Duration.seconds(30),
       reservedConcurrentExecutions: 10
     });
 
     const lambdaMultiplePathsProvisionedConcurrency =
       new aws_lambda.Function(this, 'lambda-java-geecon-multiple-paths-provisioned-concurrency', {
+        description: new Date().toISOString(),
         runtime: aws_lambda.Runtime.JAVA_11,
         memorySize: 256,
         handler: "com.adebski.LambdaJavaGeeconMultiplePathsProvisionedConcurrency",
-        code: aws_lambda.Code.fromAsset("../target/LambdaJavaGeecon-1.0.jar"),
+        code: aws_lambda.Code.fromAsset("../assets/handlers-1.0.jar"),
         timeout: Duration.seconds(30),
         reservedConcurrentExecutions: 10
       });

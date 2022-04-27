@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class LambdaJavaGeeconMultiplePathsProvisionedConcurrency implements RequestHandler<Map<String, String>, String> {
-    private static final int SAMPLE_ITERATIONS = 10;
+    private static final int SAMPLE_ITERATIONS = 2000;
     private final Logger logger;
     private final ObjectMapper objectMapper =
         new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -26,7 +26,6 @@ public class LambdaJavaGeeconMultiplePathsProvisionedConcurrency implements Requ
     public LambdaJavaGeeconMultiplePathsProvisionedConcurrency() throws InterruptedException {
         this.constructTimeStart = System.currentTimeMillis();
         this.logger = LogManager.getLogger(LambdaJavaGeeconMultiplePathsProvisionedConcurrency.class);
-        this.constructTimeEnd = System.currentTimeMillis();
 
         // To verify that the init/constructor can run for more than 10 seconds
         // we will just sleep here before we proceed to execute sample requests
@@ -38,6 +37,7 @@ public class LambdaJavaGeeconMultiplePathsProvisionedConcurrency implements Requ
             Map<String, String> exampleInput = Collections.singletonMap("testNumber", String.valueOf(i));
             logger.info("Sample result: {}", calculateResult(exampleInput, objectMapper));
         }
+        this.constructTimeEnd = System.currentTimeMillis();
 
         logger.info("Constructor took {} ms", constructTimeEnd - constructTimeStart);
     }
@@ -49,7 +49,11 @@ public class LambdaJavaGeeconMultiplePathsProvisionedConcurrency implements Requ
 
         String result = calculateResult(input, objectMapper);
 
-        logger.info("handleRequest {} ms after the constructor, {} invocation", start - constructTimeEnd, invocations);
+        logger.info(
+            "handleRequest, invocation type {}, {} ms after the constructor, {} invocation",
+            System.getenv("AWS_LAMBDA_INITIALIZATION_TYPE"),
+            start - constructTimeEnd,
+            invocations);
 
         return result;
     }
