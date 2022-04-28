@@ -11,14 +11,33 @@ export class CdkStack extends Stack {
       bucketName: 'adebski-lambda-java-geecon'
     });
 
+    const helloWorldLayer = new aws_lambda.LayerVersion(this, 'hello-world-layer', {
+      compatibleRuntimes: [
+        aws_lambda.Runtime.JAVA_11
+      ],
+      code: aws_lambda.Code.fromAsset("../assets/hello-world-extension.zip"),
+      description: 'Simple hello world external extension/layer',
+    });
+
     const lambdaHelloWorld = new aws_lambda.Function(this, 'lambda-java-geecon-hello-world', {
       description: new Date().toISOString(),
       runtime: aws_lambda.Runtime.JAVA_11,
-      memorySize: 128,
+      memorySize: 256,
       handler: "com.adebski.LambdaJavaGeeconHelloWorld",
       code: aws_lambda.Code.fromAsset("../assets/handlers-1.0.jar"),
       timeout: Duration.seconds(30),
       reservedConcurrentExecutions: 10
+    });
+
+    const lambdaHelloWorldWithExtension = new aws_lambda.Function(this, 'lambda-java-geecon-hello-world-extension', {
+      description: new Date().toISOString(),
+      runtime: aws_lambda.Runtime.JAVA_11,
+      memorySize: 256,
+      handler: "com.adebski.LambdaJavaGeeconHelloWorld",
+      code: aws_lambda.Code.fromAsset("../assets/handlers-1.0.jar"),
+      timeout: Duration.seconds(30),
+      reservedConcurrentExecutions: 10,
+      layers: [helloWorldLayer]
     });
 
     const lambdaMultiplePaths = new aws_lambda.Function(this, 'lambda-java-geecon-multiple-paths', {
@@ -44,7 +63,7 @@ export class CdkStack extends Stack {
     const alias = new aws_lambda.Alias(this, 'lambda-java-geecon-multiple-paths-provisioned-concurrency-alias', {
       aliasName: 'prod',
       version: lambdaMultiplePathsProvisionedConcurrency.currentVersion,
-      provisionedConcurrentExecutions: 1
+      provisionedConcurrentExecutions: 0
     });
   }
 }

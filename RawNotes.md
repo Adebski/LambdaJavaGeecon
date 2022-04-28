@@ -33,6 +33,14 @@ Duration: 2.09 ms
 Duration: 2.34 ms
 Duration: 2.04 ms
 
+# Layer vs no layer hello world with sleep
+avg: 1.94/10.9
+tm99.9: 1.95/17.5
+
+# Layer vs no layer hello world without sleep
+avg: 1.88/14.1
+tm99.9: 1.88/14.2
+
 # Relevant links
 https://www.techempower.com/benchmarks/#section=data-r20&hw=ph&test=db 
 single query: vertx-postgres	572,605	TPS
@@ -46,3 +54,11 @@ https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#
 1769 MB = 1vCPU
 
 https://docs.aws.amazon.com/appconfig/latest/userguide/appconfig-integration-lambda-extensions.html
+
+# Invoking lambdas
+
+## Hello world layer
+time aws lambda invoke --function-name arn:aws:lambda:us-east-1:690588305730:function:LambdaJavaGeecon-lambdajavageeconhelloworldextensi-gq4hR1DZEyT6 --payload '{"testNumber": 15 }' --cli-binary-format raw-in-base64-out  /dev/stdout
+
+## Hello world
+time aws lambda invoke --function-name arn:aws:lambda:us-east-1:690588305730:function:LambdaJavaGeecon-lambdajavageeconhelloworld3B2B7E1-rZGTp38qjs5Z --payload '{"testNumber": 15 }' --cli-binary-format raw-in-base64-out  /dev/stdout
