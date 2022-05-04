@@ -48,7 +48,7 @@ single query: vertx-postgres	572,605	TPS
 https://stackexchange.com/performance
 SO: 300 REQ /S
 
-https://calculator.aws/#/estimate?id=d4ba86741ec68ef7eafd0588953ef2e01e2bb1d4
+https://calculator.aws/#/estimate?id=c1825f500176fcc8e47e20770a1d2437279f0d78
 
 https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-memory-console
 1769 MB = 1vCPU
