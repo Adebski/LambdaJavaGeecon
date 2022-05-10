@@ -41,10 +41,16 @@ public class LambdaJavaGeeconHelloWorld implements RequestHandler<Map<String, St
         long start = System.currentTimeMillis();
         int numberReceived = Integer.parseInt(input.get("testNumber"));
         String result =
-            numberReceived % 2 == 0 ? String.format("%d is even", numberReceived) : String.format("%d is odd", numberReceived);
+            numberReceived % 2 == 0
+                ? String.format("%d is even", numberReceived)
+                : String.format("%d is odd", numberReceived);
 
-        logger.info("handleRequest {} ms after the constructor, {} invocation", start - constructTimeEnd, invocations);
+        logger.info(
+            "handleRequest {} ms after the constructor, {} invocation",
+            start - constructTimeEnd,
+            invocations);
 
         return result;
     }
+
 }
