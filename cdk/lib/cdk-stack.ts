@@ -63,7 +63,7 @@ export class CdkStack extends Stack {
     const alias = new aws_lambda.Alias(this, 'lambda-java-geecon-multiple-paths-provisioned-concurrency-alias', {
       aliasName: 'prod',
       version: lambdaMultiplePathsProvisionedConcurrency.currentVersion,
-      provisionedConcurrentExecutions: 0
+      provisionedConcurrentExecutions: 1
     });
   }
 }
