@@ -33,12 +33,15 @@ public class LambdaJavaGeeconMultiplePathsProvisionedConcurrency implements Requ
         Thread.sleep(10000);
         logger.info("Sleep end");
 
+        // Pre-warming the most common code paths in the function handler constructor to take advantage
+        // of the provisioned concurrency function lifecycle
         for(int i = 0; i < SAMPLE_ITERATIONS; ++i) {
             Map<String, String> exampleInput = Collections.singletonMap("testNumber", String.valueOf(i));
             logger.info("Sample result: {}", calculateResult(exampleInput, objectMapper));
         }
         this.constructTimeEnd = System.currentTimeMillis();
 
+        System.out.println("Env: " + System.getenv());
         logger.info("Constructor took {} ms", constructTimeEnd - constructTimeStart);
     }
 

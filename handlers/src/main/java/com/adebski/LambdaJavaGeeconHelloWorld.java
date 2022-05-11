@@ -32,6 +32,8 @@ public class LambdaJavaGeeconHelloWorld implements RequestHandler<Map<String, St
         this.logger = LogManager.getLogger(LambdaJavaGeeconHelloWorld.class);
         this.constructTimeEnd = System.currentTimeMillis();
 
+        System.out.println("Env: " + System.getenv());
+
         logger.info("Constructor took {} ms", constructTimeEnd - constructTimeStart);
     }
 
